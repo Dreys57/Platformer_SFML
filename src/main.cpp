@@ -2,12 +2,15 @@
 #include <Box2D/Box2D.h>
 #include <globals.h>
 #include <iostream>
+#include "Player.h"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 647), "Platformer");
 	window.setVerticalSyncEnabled(true);
 
+	PlayerCharacter player;
+	
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
 
@@ -31,7 +34,9 @@ int main()
 
 		window.clear(sf::Color::White);
 
+
 		window.draw(backgroundSprite);
+		player.Draw(window);
 	
 		window.display();
 	}
