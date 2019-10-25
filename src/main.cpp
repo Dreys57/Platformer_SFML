@@ -17,20 +17,24 @@ int main()
 	}
 	backgroundSprite.setTexture(backgroundTexture);
 
-	sf::Event event;
-	while(window.pollEvent(event))
+	while(window.isOpen())
 	{
-		if (event.type == sf::Event::Closed)
+		
+		sf::Event event;
+		
+		while(window.pollEvent(event))
 		{
-			window.close();
+			if (event.type == sf::Event::Closed)
+				window.close();
+
 		}
-	}
 
-	window.clear(sf::Color::White);
+		window.clear(sf::Color::White);
 
-	window.draw(backgroundSprite);
+		window.draw(backgroundSprite);
 	
-	window.display();
+		window.display();
+	}
 
 
 
