@@ -3,6 +3,7 @@
 #include <globals.h>
 #include <iostream>
 #include "Player.h"
+#include "Platform.h"
 
 int main()
 {
@@ -10,9 +11,13 @@ int main()
 	window.setVerticalSyncEnabled(true);
 
 	PlayerCharacter player;
+	Platform platform = Platform(sf::Vector2f(400.0f, 550), sf::Vector2f(800, 50));
 	
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
+
+	platform.Init();
+	//player.Init();
 
 	if(!backgroundTexture.loadFromFile("data/background.png"))
 	{
@@ -36,6 +41,7 @@ int main()
 
 
 		window.draw(backgroundSprite);
+		platform.Draw(window);
 		player.Draw(window);
 	
 		window.display();

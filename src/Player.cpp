@@ -10,7 +10,14 @@ PlayerCharacter::PlayerCharacter()
 	playerSprite_.setTexture(playerTexture_);
 }
 
-void PlayerCharacter::Draw(sf::RenderWindow& window)
+void PlayerCharacter::Draw(sf::RenderWindow& window) 
 {
+
+	playerSprite_.setPosition(playerPosition_);
 	window.draw(playerSprite_);
+}
+
+void PlayerCharacter::Init()
+{
+	playerSprite_.setOrigin(playerPosition_);
 }
