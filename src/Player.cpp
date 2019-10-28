@@ -42,21 +42,37 @@ void PlayerCharacter::Init(b2World& world)
 
 void PlayerCharacter::Update(float dt)
 {
+	float jump = playerBody_->GetLinearVelocity().y;
+	bool jumpButton = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+
+	if(jumpButton && !previousJumpButton_)
+	{
+		jump = jumpVelocity_;
+	}
+
+	
 	float move = 0.0f;
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		move -= 1.0f;
+		
 		playerSprite_.setScale(sf::Vector2f(-1, 1));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		move += 1.0f;
+		
 		playerSprite_.setScale(sf::Vector2f(1, 1));
 	}
 
 	const float deltaVx = move * pixel2meter(playerSpeed_) - playerBody_->GetLinearVelocity().x;
 	const float fx = movementFactor_ * playerBody_->GetMass() * deltaVx / dt;
 
-	playerBody_->ApplyForce(b2Vec2(fx, 0), playerBody_->GetWorldCenter(), true);
+	const float deltaVy = jump - playerBody_->GetLinearVelocity().y;
+	const float fy = playerBody_->GetMass() * deltaVy / dt;
+
+	playerBody_->ApplyForce(b2Vec2(fx, fy), playerBody_->GetWorldCenter(), true);
+
+	previousJumpButton_ = jumpButton;
 }

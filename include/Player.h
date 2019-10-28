@@ -23,6 +23,9 @@ private:
 	b2Body* playerBody_ = nullptr;
 	const float playerSpeed_ = 120.0f;
 	const float movementFactor_ = 0.7f;
+	const float jumpVelocity_ = -5.0f;
+	bool previousJumpButton_ = false;
+	int contactNb_ = 0;
 	
 };
 
