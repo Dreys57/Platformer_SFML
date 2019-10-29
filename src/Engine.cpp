@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "Player.h"
 #include "Platform.h"
+#include "Wall.h"
 
 
 Engine::Engine() : platformListener_(this)
@@ -46,20 +47,19 @@ void Engine::Loop()
 	world.SetContactListener(&platformListener_);
 
 	Platform platform = Platform(sf::Vector2f(150.0f, 550), sf::Vector2f(300, 78));
-	/*Platform platform2 = Platform(sf::Vector2f(112.5f, 550), sf::Vector2f(75, 78));
-	Platform platform3 = Platform(sf::Vector2f(187.5f, 550), sf::Vector2f(75, 78));
-	Platform platform4 = Platform(sf::Vector2f(262.5f, 550), sf::Vector2f(75, 78));*/
-
+	Platform platform2 = Platform(sf::Vector2f(650, 550), sf::Vector2f(300, 78));
+	
+	Wall wall = Wall(sf::Vector2f(400, 323.5f), sf::Vector2f(76, 380));
 
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
 
 
-	/*platform2.Init(world);
-	platform3.Init(world);
-	platform4.Init(world);*/
+	
 	playerCharacter_.Init(world);
 	platform.Init(world);
+	platform2.Init(world);
+	wall.Init(world);
 
 	if (!backgroundTexture.loadFromFile("data/background.png"))
 	{
@@ -91,9 +91,8 @@ void Engine::Loop()
 
 		window.draw(backgroundSprite);
 		platform.Draw(window);
-		/*platform2.Draw(window);
-		platform3.Draw(window);
-		platform4.Draw(window);*/
+		platform2.Draw(window);
+		wall.Draw(window);
 		playerCharacter_.Draw(window);
 
 		window.display();

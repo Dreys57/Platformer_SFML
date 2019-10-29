@@ -82,12 +82,10 @@ void PlayerCharacter::Update(float dt)
 
 void PlayerCharacter::OnContactBegin()
 {
-	std::cout << "collision\n";
 	contactNb_++;
 }
 
 void PlayerCharacter::OnContactEnd()
 {
-	std::cout << "end collision\n";
 	contactNb_--;
 }
