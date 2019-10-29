@@ -18,6 +18,8 @@ public:
 	void OnContactBegin();
 	void OnContactEnd();
 
+	bool hasWon();
+
 private:
 
 	sf::Texture playerTexture_;

@@ -95,3 +95,8 @@ void PlayerCharacter::OnContactEnd()
 {
 	contactNb_--;
 }
+
+bool PlayerCharacter::hasWon()
+{
+	return playerBody_->GetPosition().x > pixel2meter(800);
+}

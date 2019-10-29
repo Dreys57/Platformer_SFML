@@ -78,8 +78,10 @@ void Engine::Loop()
 
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (playerCharacter_.hasWon())
+			{
 				window.close();
+			}
 
 		}
 
