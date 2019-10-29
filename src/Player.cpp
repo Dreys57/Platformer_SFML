@@ -5,26 +5,26 @@
 
 PlayerCharacter::PlayerCharacter()
 {
-	if(!playerTexture_.loadFromFile("data/personnage.png"))
+	if (!playerTexture_.loadFromFile("data/personnage.png"))
 	{
 		std::cerr << "[Error]\n";
 	}
 	playerSprite_.setTexture(playerTexture_);
 }
 
-void PlayerCharacter::Draw(sf::RenderWindow& window) 
+void PlayerCharacter::Draw(sf::RenderWindow& window)
 {
 	playerPosition_ = meter2pixel(playerBody_->GetPosition());
 	playerSprite_.setPosition(playerPosition_);
-	
+
 	window.draw(playerSprite_);
 }
 
 void PlayerCharacter::Init(b2World& world)
 {
-	
-	playerSprite_.setOrigin(playerSize_/2.0f);
-	
+
+	playerSprite_.setOrigin(playerSize_ / 2.0f);
+
 	b2BodyDef bodyDef;
 	bodyDef.position = pixel2meter(playerPosition_);
 	bodyDef.type = b2_dynamicBody;
@@ -36,6 +36,8 @@ void PlayerCharacter::Init(b2World& world)
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
+	fixtureDef.friction = 0.0f;
+	fixtureDef.userData = this;
 
 	playerBody_->CreateFixture(&fixtureDef);
 }
@@ -45,24 +47,24 @@ void PlayerCharacter::Update(float dt)
 	float jump = playerBody_->GetLinearVelocity().y;
 	bool jumpButton = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 
-	if(jumpButton && !previousJumpButton_)
+	if (jumpButton && !previousJumpButton_ && contactNb_ > 0)
 	{
 		jump = jumpVelocity_;
 	}
 
-	
+
 	float move = 0.0f;
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		move -= 1.0f;
-		
+
 		playerSprite_.setScale(sf::Vector2f(-1, 1));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		move += 1.0f;
-		
+
 		playerSprite_.setScale(sf::Vector2f(1, 1));
 	}
 
@@ -75,4 +77,17 @@ void PlayerCharacter::Update(float dt)
 	playerBody_->ApplyForce(b2Vec2(fx, fy), playerBody_->GetWorldCenter(), true);
 
 	previousJumpButton_ = jumpButton;
+
+}
+
+void PlayerCharacter::OnContactBegin()
+{
+	std::cout << "collision\n";
+	contactNb_++;
+}
+
+void PlayerCharacter::OnContactEnd()
+{
+	std::cout << "end collision\n";
+	contactNb_--;
 }

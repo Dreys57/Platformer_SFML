@@ -2,17 +2,17 @@
 #include "globals.h"
 #include <iostream>
 
-Platform::Platform()
-{
-}
 
-Platform::Platform(sf::Vector2f position, sf::Vector2f size): position_(position), size_(size)
+
+Platform::Platform(sf::Vector2f position, sf::Vector2f size) : position_(position), size_(size)
 {
-	if(!platformTexture_.loadFromFile("data/plateformeSprite.png"))
+	if (!platformTexture_.loadFromFile("data/BigPlateforme.png"))
 	{
 		std::cerr << "[Error]\n";
 	}
 	platformSprite_.setTexture(platformTexture_);
+
+	gameObjectType_ = GameObjectType::PLATFORM;
 }
 
 void Platform::Init(b2World& world)
@@ -30,10 +30,11 @@ void Platform::Init(b2World& world)
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
 	fixtureDef.friction = 0.0f;
+	fixtureDef.userData = this;
 	platformBody_->CreateFixture(&fixtureDef);
 }
 
-void Platform::Draw(sf::RenderWindow& window) 
+void Platform::Draw(sf::RenderWindow& window)
 {
 	window.draw(platformSprite_);
 }

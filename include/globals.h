@@ -18,16 +18,19 @@ float meter2pixel(float meter);
 b2Vec2 pixel2meter(sf::Vector2f pixels);
 sf::Vector2f meter2pixel(b2Vec2 meters);
 
-enum class ContactDataType
+enum class GameObjectType
 {
-	PLATFORM_CHARACTER,
-	PLATFORM
+	PLATFORM,
+	PLAYER_CHARACTER
 };
 
-struct ContactData
+class GameObject
 {
-	void* data;
-	ContactDataType contactDataType;
+public:
+	GameObjectType GetGameObjectType() const { return gameObjectType_; }
+
+protected:
+	GameObjectType gameObjectType_;
 };
 
 #endif

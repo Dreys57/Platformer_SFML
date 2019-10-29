@@ -1,8 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <Box2D/Box2D.h>
+#include "globals.h"
 
-class Platform
+class Platform : public GameObject
 {
 public:
 

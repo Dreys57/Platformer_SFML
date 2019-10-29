@@ -1,8 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <Box2D/Box2D.h>
+#include "globals.h"
 
-class PlayerCharacter
+class PlayerCharacter : public GameObject
 {
 public:
 
@@ -13,6 +14,9 @@ public:
 	void Init(b2World& world);
 
 	void Update(float dt);
+
+	void OnContactBegin();
+	void OnContactEnd();
 
 private:
 
