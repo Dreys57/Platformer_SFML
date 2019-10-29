@@ -78,6 +78,12 @@ void PlayerCharacter::Update(float dt)
 
 	previousJumpButton_ = jumpButton;
 
+	if(playerBody_->GetPosition().y > 7)
+	{
+		playerBody_->SetTransform(b2Vec2(pixel2meter(16.0f), pixel2meter(324)), 0);
+	}
+
+
 }
 
 void PlayerCharacter::OnContactBegin()
